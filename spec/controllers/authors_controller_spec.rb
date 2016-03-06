@@ -95,7 +95,19 @@ RSpec.describe AuthorsController, :type => :controller do
     end
 
     context "unsuccessful update" do
+      let(:john) { Fabricate(:author, first_name: "John") }
 
+      it "does not update the modified author object with invalid inputs" do
+        put :update, author: Fabricate.attributes_for(:author, first_name: nil), id: john.id
+
+        expect(Author.last.first_name).to eq("John")
+      end
+
+      it "sets the danger flash message" do
+        put :update, author: Fabricate.attributes_for(:author, first_name: nil), id: john.id
+
+        expect(flash[:danger]).to eq("Author has not been updated")
+      end
     end
   end
 end
