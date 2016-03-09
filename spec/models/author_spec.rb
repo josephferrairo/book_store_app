@@ -20,4 +20,7 @@ RSpec.describe Author, :type => :model do
       expect(author.full_name).to eq("Joe Ferrairo")
     end
   end
+
+  it { should have_many(:publications) }
+  it { should have_many(:books).through(:publications) }
 end
