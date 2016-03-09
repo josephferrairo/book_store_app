@@ -9,6 +9,8 @@ class BooksController < ApplicationController
 
   def new
     @book = Book.new
+    @publishers = Publisher.all
+    @authors = Author.all
   end
 
   def create
@@ -25,6 +27,7 @@ class BooksController < ApplicationController
   end
 
   def edit
+    @author = Author.all
   end
 
   def update
@@ -49,7 +52,7 @@ class BooksController < ApplicationController
     params.require(:book).permit(:title, :isbn, :page_count, :price, :description,
     :published_at, :publisher_id)
   end
-  
+
   def set_book
     @book = Book.find(params[:id])
   end
