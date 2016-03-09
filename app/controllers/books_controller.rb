@@ -18,6 +18,8 @@ class BooksController < ApplicationController
       redirect_to @book
     else
       flash.now[:danger] = 'Book has not been created'
+      @publishers = Publisher.all
+      @authors = Author.all
       render :new
     end
   end
@@ -41,11 +43,13 @@ class BooksController < ApplicationController
       redirect_to books_path
     end
   end
+
   private
   def book_params
     params.require(:book).permit(:title, :isbn, :page_count, :price, :description,
     :published_at, :publisher_id)
   end
+  
   def set_book
     @book = Book.find(params[:id])
   end
